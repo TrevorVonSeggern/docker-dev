@@ -1,5 +1,4 @@
 source $HOME/.vim/rc/plugins.vim
-
 source $HOME/.vim/rc/general.vim
 source $HOME/.vim/rc/mappings.vim
 source $HOME/.vim/rc/ui.vim
@@ -11,11 +10,12 @@ Plug 'tomasiser/vim-code-dark'
 Plug 'vim-airline/vim-airline'
 
 " C#
-"Plug 'OmniSharp/omnisharp-vim'
-"Plug 'w0rp/ale'
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/async.vim'
+Plug 'OmniSharp/omnisharp-vim'
+Plug 'w0rp/ale'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
 
+Plug 'ervandew/supertab'
 
 "Plug 'SirVer/ultisnips'
 "Plug 'prabirshrestha/asyncomplete.vim'
@@ -34,7 +34,10 @@ let g:asyncomplete_force_refresh_on_context_changed = 1
 let g:OmniSharp_server_stdio = 1
 let g:OmniSharp_highlight_types = 2
 
-let g:omnicomplete_fetch_full_documentation = 1
+" This adds a large preview split screen on the top of the terminal
+" let g:omnicomplete_fetch_full_documentation = 1
 
 let g:ale_linters = { 'cs': ['OmniSharp'] }
 
+" supertab config
+let g:SuperTabDefaultCompletionType = "<c-n>"
