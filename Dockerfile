@@ -21,7 +21,7 @@ WORKDIR /home/devuser
 RUN mkdir .vim
 RUN mkdir .vim/rc
 COPY dotfiles/.vim .vim
-COPY .vimrc .vimrc
+COPY dotfiles/.vimrc .vimrc
 
 RUN chown -R devuser /home/devuser
 

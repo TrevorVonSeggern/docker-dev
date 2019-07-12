@@ -1,5 +1,3 @@
-set lazyredraw
-
 " line endings
 set fileformats=unix,mac,dos
 
@@ -15,14 +13,5 @@ set backspace=indent,eol,start
 " sync clipboard
 set clipboard=unnamedplus
 
-
 set wildignore+=*/.git/*,*/.idea/*,*/.DS_Store
-
-set visualbell t_vb=         " No beep sound
-set noerrorbells
-set novisualbell
-
-set secure
-
-
 
