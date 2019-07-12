@@ -2,7 +2,7 @@
 set encoding=utf-8
 set background=dark
 set t_Co=16
-silent! colorscheme solarized
+"silent! colorscheme solarized
 
 " enables mouse
 

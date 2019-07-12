@@ -10,6 +10,8 @@ Plug 'w0rp/ale'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/async.vim'
 
+Plug 'flazz/vim-colorschemes'
+
 "Plug 'w0rp/ale'
 "Plug 'SirVer/ultisnips'
 "Plug 'prabirshrestha/asyncomplete.vim'

@@ -10,25 +10,23 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsof
 	apt-get update && \
 	apt-get install dotnet-sdk-2.2 -y
 
-
-
 # devuser user
 RUN adduser --disabled-password --gecos '' devuser && \
 	adduser devuser sudo && \
-	echo '%sudo ALL=(ALL:ALL) ALL' >> /etc/sudoers && \
-	chown devuser /home/devuser
-USER devuser
+	echo '%sudo ALL=(ALL:ALL) ALL' >> /etc/sudoers
+
 ENV HOME /home/devuser
 WORKDIR /home/devuser
-
 
 RUN mkdir .vim
 RUN mkdir .vim/rc
 COPY dotfiles/.vim .vim
 COPY .vimrc .vimrc
 
+RUN chown -R devuser /home/devuser
+
+USER devuser
 
 CMD ["vi -c ':PlugInstall'"]
-
 CMD ["/bin/bash"]
 
