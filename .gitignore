@@ -4,19 +4,9 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # Ignore files specific to testing in this repo.
-dotfiles/.local
-dotfiles/.bash_history
-dotfiles/.dotnet/
-dotfiles/.mono/
-dotfiles/.nuget/
-dotfiles/.omnisharp/
-dotfiles/.templateengine/
-dotfiles/.vim/.netrwhist
-dotfiles/.vim/autoload/
-dotfiles/.vim/plugged/
-dotfiles/.viminfo
-dotfiles/exampleConsole/
-**.swp
+dotfiles/
+!dotfiles/.vimrc
+!dotfiles/.vim
 
 # User-specific files
 *.suo

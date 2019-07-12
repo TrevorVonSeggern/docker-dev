@@ -2,7 +2,7 @@ FROM ubuntu:latest
 
 # Normal tools & stuff
 RUN	apt-get update && \
-	apt-get install vim build-essential git make curl wget zip cmake sudo apt-transport-https -y
+	apt-get install -y vim build-essential git make curl wget zip cmake sudo apt-transport-https
 
 # dotnet
 RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
@@ -13,7 +13,7 @@ RUN wget -q https://packages.microsoft.com/config/ubuntu/18.04/packages-microsof
 # devuser user
 RUN adduser --disabled-password --gecos '' devuser && \
 	adduser devuser sudo && \
-	echo '%sudo ALL=(ALL:ALL) ALL' >> /etc/sudoers
+	echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
 ENV HOME /home/devuser
 WORKDIR /home/devuser
