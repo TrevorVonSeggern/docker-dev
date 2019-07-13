@@ -2,10 +2,8 @@
 set fileformats=unix,mac,dos
 
 " tab configuration
-set smartindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set autoindent noexpandtab tabstop=4 shiftwidth=4
+"set smartindent
 
 " can use backspace
 set backspace=indent,eol,start
