@@ -21,7 +21,6 @@ RUN wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-p
 		apt-get install -qqy dotnet-sdk-3.1 && \
 		rm -rf ./*.deb
 
-
 WORKDIR "/home/user/work"
 
 # we should not do everything as root. bad practice.
