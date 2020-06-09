@@ -10,5 +10,4 @@ Currently only supporting c#, but I expect more to come.
 
 
 
-Split pane management:
-ctrl+w, then home row navigation. Think "Control Window"
+
