@@ -1,3 +1,6 @@
 [submodule "vim"]
 	path = vim
 	url = https://github.com/TrevorVonSeggern/vim
+[submodule "dotfiles"]
+	path = dotfiles
+	url = https://github.com/TrevorVonSeggern/dotfiles
