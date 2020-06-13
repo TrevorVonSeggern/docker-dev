@@ -23,20 +23,13 @@ RUN wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-p
 
 
 # we should not do everything as root. bad practice.
-RUN adduser --disabled-password user
-RUN chown -R user:user "/home/user"
+RUN useradd -ms /bin/zsh user
 USER user
-WORKDIR "/home/user"
 
-RUN wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh || true
-
-COPY dotfiles/ /home/user/dotfiles
+COPY --chown=user:user dotfiles/ /home/user/dotfiles
 RUN /home/user/dotfiles/install.sh
 
-COPY vim /home/user/vim
-RUN /home/user/vim/install.sh
-
-WORKDIR "/home/user/work"
-
+RUN mkdir /home/user/work
+WORKDIR /home/user/work
 
 ENTRYPOINT [ "/bin/zsh" ]
