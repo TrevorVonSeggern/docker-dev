@@ -26,7 +26,7 @@ RUN wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-p
 RUN useradd -ms /bin/zsh user
 USER user
 
-COPY --chown=user:user dotfiles/ /home/user/dotfiles
+COPY --chown=user:user dotfiles /home/user/dotfiles
 RUN /home/user/dotfiles/install.sh
 
 RUN mkdir /home/user/work
