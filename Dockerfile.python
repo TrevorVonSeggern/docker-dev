@@ -1,0 +1,28 @@
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND=noninteractive \
+	TZ=America/Denver
+
+RUN apt-get update -qq && \
+    apt-get upgrade -qqy && \
+	apt-get install -qqy \
+		apt-transport-https \
+		tzdata \
+		wget curl \
+		git \
+		vim \
+		libpq-dev \
+		bash zsh \
+		python-virtualenv python3 python3-dev
+
+# we should not do everything as root. bad practice.
+RUN useradd -ms /bin/zsh user
+USER user
+
+COPY --chown=user:user dotfiles /home/user/dotfiles
+RUN /home/user/dotfiles/install.sh
+
+RUN mkdir /home/user/work
+WORKDIR /home/user/work
+
+ENTRYPOINT [ "/bin/zsh" ]
