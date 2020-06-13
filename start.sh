@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Do you wish to install this program?"
-select RUN in "dotnet" "python" ;do break; done;
+select RUN in "dotnet" "python" "node" ;do break; done;
 echo setting up environment for $RUN
 
 #if [[ "$(docker images -q devbox.$RUN 2> /dev/null)" == "" ]]; then
