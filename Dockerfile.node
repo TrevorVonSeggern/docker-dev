@@ -12,7 +12,9 @@ RUN apt-get update -qq && \
 		git \
 		vim \
 		libpq-dev build-essential libssl-dev \
-		bash zsh
+		bash zsh \
+		&& mkdir -p /home/user/.local/share/zsh/
+
 
 # we should not do everything as root. bad practice.
 RUN useradd -ms /bin/zsh user
