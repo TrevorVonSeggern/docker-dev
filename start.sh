@@ -9,13 +9,12 @@ echo setting up environment for $RUN
 
 docker build -f Dockerfile.$RUN -t devbox.$RUN .
 
-mkdir -p .local
+mkdir -p .local work
 
 # might want to add this current mappinf or an alias
 	#-v `pwd`/dotfiles:/home/user/work \
-	#
-	#--volume-from /home/user/.local \
 docker run -it \
-	-v `pwd`/.local:/home/user/.local \
 	--user $UID:$GID \
+	-v `pwd`/.local:/home/user/.local \
+	-v `pwd`/work:/home/user/work \
 	devbox.$RUN

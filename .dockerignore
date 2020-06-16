@@ -1,0 +1,4 @@
+work
+.local
+Dockerfile.*
+.git*
