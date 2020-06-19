@@ -1,8 +1,11 @@
-#!/bin/bash
-echo "On point!"
-su - user
-echo `whoami`
+#!/bin/zsh
+# this needs to be zsh, because vim is configured under zsh.
+set -e
 
-vim +PlugInstall +qall
+mkdir -p ~/work
+cd ~/work
+
+# plug install should happen on start.
+vim -E -c PlugInstall -c qall > /dev/null
 
 /bin/zsh

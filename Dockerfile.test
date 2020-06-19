@@ -7,10 +7,9 @@ RUN apt-get update -qq && \
 		wget curl \
 		git vim bash zsh
 
-COPY --chown=user:user entrypoint.sh entrypoint.sh
 COPY --chown=user:user dotfiles /home/user/dotfiles
-
 RUN  mkdir -p /home/user/.local/share/zsh \
 	&& /bin/su -s /bin/zsh -c "/home/user/dotfiles/install.sh" user
 
+COPY --chown=user:user entrypoint.sh entrypoint.sh
 ENTRYPOINT [ "/entrypoint.sh" ]
