@@ -2,3 +2,4 @@ work
 .local
 Dockerfile.*
 .git*
+volume
