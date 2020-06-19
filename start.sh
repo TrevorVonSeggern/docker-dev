@@ -4,17 +4,46 @@
 set -e
 
 echo "Do you wish to install this program?"
-select RUN in "dotnet" "python" "node" "elm" ;do break; done;
+select RUN in "dotnet" "python" "node" "elm" "test" ;do break; done;
 echo setting up environment for $RUN
 
+# remove this line if you don't want to re-build each time.
 docker build -f Dockerfile.$RUN -t devbox.$RUN .
 
-mkdir -p .local work
+# Create volumes for:
+# .local => this stores data for vim (downloaded plugins) and zsh (dumps and history)
+# work => your working directory, this will probably be pwd in a real application.
+# dotfiles/vim/autoload/ => the vim plugin get downloaded here. Cacheing here is nice.
+# .cache => vim caches .fzf here.
+mkdir -p volume/.local volume/work volume/autoload volume/.cache
 
-# might want to add this current mappinf or an alias
-	#-v `pwd`/dotfiles:/home/user/work \
+# might want to add this to an alias or something.
+# TODO how do I manage many crazy volumes on any given machine with unknown configuration?
 docker run -it \
 	--user $UID:$GID \
-	-v `pwd`/.local:/home/user/.local \
-	-v `pwd`/work:/home/user/work \
+	-v `pwd`/volume/.local:/home/user/.local \
+	-v `pwd`/volume/work:/home/user/work \
+	-v `pwd`/volume/autoload:/home/user/dotfiles/vim/autoload \
+	-v `pwd`/volume/.cache:/home/user/.cache \
 	devbox.$RUN
+# devbox.$run could be changed to teamtvo/devbox:$run if you don't want to build the image locally.
+
+
+
+
+# things I've learned: 
+
+# 	"VOLUME" in a docker file does almost nothing.
+# 	Every container that gets run gets a new volume. No persisted data.
+# 	Like, what is the point of a volume if the data isn't persisted?!
+
+# 	When you mount a host folder which doesn't exist it will create the folder.
+# 	The folder it creates will be owned by root:root. In container and host.
+
+# 	When you mount a host folder as a volume it will not modify the folder.
+# 	That includes the permissions of the folder. Ie, the uid and gid are kept.
+# 	So you can create those folders beforehand, you have control over the uid
+# 	of the folder. You can map the uid of the host to the uid of the container user.
+# 	This is a bit hacky...
+
+# 	You can create a new user in a container, and it will mostly work...
