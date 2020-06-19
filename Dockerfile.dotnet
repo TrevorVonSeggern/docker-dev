@@ -13,24 +13,21 @@ RUN apt-get update -qq && \
 		git \
 		vim \
 		libpq-dev \
-		bash zsh
-
-RUN wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
+		bash zsh \
+	&& wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
 		apt install ./packages-microsoft-prod.deb && \
 		apt-get update && \
 		apt-get install -qqy dotnet-sdk-3.1 && \
-		rm -rf ./*.deb && \
-	    mkdir -p /home/user/.local/share/zsh/
-
+		rm -rf ./*.deb
 
 # we should not do everything as root. bad practice.
 RUN useradd -ms /bin/zsh user
 USER user
 
-COPY --chown=user:user dotfiles /home/user/dotfiles
-RUN /home/user/dotfiles/install.sh
+RUN  mkdir -p /home/user/.local/share/zsh
 
-RUN mkdir /home/user/work
+COPY --chown=user:user dotfiles /home/user/dotfiles
+RUN /home/user/dotfiles/install.sh && mkdir -p /home/user/work
 WORKDIR /home/user/work
 
 ENTRYPOINT [ "/bin/zsh" ]

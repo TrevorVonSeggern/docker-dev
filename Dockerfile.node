@@ -1,29 +1,26 @@
-FROM node:buster
-
-ENV DEBIAN_FRONTEND=noninteractive \
-	TZ=America/Denver
+FROM ubuntu:latest
 
 RUN apt-get update -qq && \
     apt-get upgrade -qqy && \
 	apt-get install -qqy \
 		apt-transport-https \
-		tzdata \
 		wget curl \
 		git \
 		vim \
-		libpq-dev build-essential libssl-dev \
+		libpq-dev libssl-dev build-essential \
 		bash zsh \
-		&& mkdir -p /home/user/.local/share/zsh/
+	&& curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+	&& apt install -qqy nodejs
 
 
 # we should not do everything as root. bad practice.
 RUN useradd -ms /bin/zsh user
 USER user
 
-COPY --chown=user:user dotfiles /home/user/dotfiles
-RUN /home/user/dotfiles/install.sh
+RUN  mkdir -p /home/user/.local/share/zsh
 
-RUN mkdir /home/user/work
+COPY --chown=user:user dotfiles /home/user/dotfiles
+RUN /home/user/dotfiles/install.sh && mkdir -p /home/user/work
 WORKDIR /home/user/work
 
 ENTRYPOINT [ "/bin/zsh" ]

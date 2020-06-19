@@ -14,13 +14,11 @@ RUN apt-get update -qq && \
 # we should not do everything as root. Bad practice.
 RUN useradd -ms /bin/zsh user
 USER user
-WORKDIR /home/user
-
 
 RUN  mkdir -p /home/user/.local/share/zsh
 
 COPY --chown=user:user dotfiles /home/user/dotfiles
-
-RUN /home/user/dotfiles/install.sh
+RUN /home/user/dotfiles/install.sh && mkdir -p /home/user/work
+WORKDIR /home/user/work
 
 ENTRYPOINT [ "/bin/zsh" ]
