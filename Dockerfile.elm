@@ -1,5 +1,7 @@
 FROM ubuntu:latest
 
+RUN useradd -ms /bin/zsh user
+
 RUN apt-get update -qq && \
     apt-get upgrade -qqy && \
 	apt-get install -qqy \
@@ -11,14 +13,9 @@ RUN apt-get update -qq && \
 	&& curl -L -o elm.gz https://github.com/elm/compiler/releases/download/0.19.1/binary-for-linux-64-bit.gz \
 	&& gunzip elm.gz && chmod +x elm && mv elm /usr/local/bin/
 
-# we should not do everything as root. Bad practice.
-RUN useradd -ms /bin/zsh user
-USER user
-
-RUN  mkdir -p /home/user/.local/share/zsh
-
 COPY --chown=user:user dotfiles /home/user/dotfiles
-RUN /home/user/dotfiles/install.sh && mkdir -p /home/user/work
-WORKDIR /home/user/work
+RUN  mkdir -p /home/user/.local/share/zsh \
+	&& /bin/su -s /bin/zsh -c "/home/user/dotfiles/install.sh" user
 
-ENTRYPOINT [ "/bin/zsh" ]
+COPY --chown=user:user entrypoint.sh entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
