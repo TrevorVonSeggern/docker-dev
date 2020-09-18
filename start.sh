@@ -3,12 +3,25 @@
 # exit when any command fails
 set -e
 
-echo "Do you wish to install this program?"
-select RUN in "dotnet" "python" "node" "elm" "test" ;do break; done;
-echo setting up environment for $RUN
-
 # remove this line if you don't want to re-build each time.
-docker build -f Dockerfile.$RUN -t devbox.$RUN .
+runRemote=false
+buildLocal=true
+
+if [ "$runRemote" = true ]; then
+	containerName="teamtvo/devbox:"
+else
+	containerName="devbox."
+fi
+
+echo "Which environment to run?"
+#select RUN in "dotnet" "python" "node" "elm" "test" ;do break; done;
+RUN="test"
+echo setting up environment for $RUN
+containerName="$containerName$RUN"
+
+if [ "$buildLocal" = true ]; then
+	docker build -f Dockerfile.$RUN -t $containerName .
+fi
 
 # Create volumes for:
 # .local => this stores data for vim (downloaded plugins) and zsh (dumps and history)
@@ -18,20 +31,23 @@ docker build -f Dockerfile.$RUN -t devbox.$RUN .
 mkdir -p volume/.local volume/work volume/autoload volume/.cache
 
 # might want to add this to an alias or something.
-# TODO how do I manage many crazy volumes on any given machine with unknown configuration?
-docker run -it \
-	--user $UID:$GID \
-	-v `pwd`/volume/.local:/home/user/.local \
-	-v `pwd`/volume/work:/home/user/work \
-	-v `pwd`/volume/autoload:/home/user/dotfiles/vim/autoload \
-	-v `pwd`/volume/.cache:/home/user/.cache \
-	devbox.$RUN
-# devbox.$run could be changed to teamtvo/devbox:$run if you don't want to build the image locally.
+docker run -it --rm \
+	-e HOST_USER_ID=$UID \
+	-e HOST_GROUP_ID=$GID \
+	-v /home/$USER/.config:/home/me/.config \
+	-v /home/$USER/.local:/home/me/.local \
+	-v /home/$USER/.cache:/home/me/.cache \
+	-v /home/$USER/.ssh:/home/me/.ssh \
+	$containerName
+
+	#-v `pwd`/volume/work:/home/user/work \
+	#-v `pwd`/volume/autoload:/home/user/dotfiles/vim/autoload \
+	#-v `pwd`/volume/.cache:/home/user/.cache \
 
 
 
 
-# things I've learned: 
+# things I've learned:
 
 # 	"VOLUME" in a docker file does almost nothing.
 # 	Every container that gets run gets a new volume. No persisted data.
