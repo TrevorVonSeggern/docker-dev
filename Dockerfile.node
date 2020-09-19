@@ -3,5 +3,7 @@ FROM ubuntu:latest
 COPY installCommonPackages.sh ./
 RUN ./installCommonPackages.sh # common packages has node...
 
+RUN npm install -g yarn
+
 COPY entrypoint.sh ./
 CMD [ "./entrypoint.sh" ]
