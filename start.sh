@@ -14,8 +14,8 @@ else
 fi
 
 echo "Which environment to run?"
-#select RUN in "dotnet" "python" "node" "elm" "test" ;do break; done;
-RUN="test"
+select RUN in "dotnet" "python" "node" "elm" "test" ;do break; done;
+#RUN="test"
 echo setting up environment for $RUN
 containerName="$containerName$RUN"
 
@@ -34,6 +34,7 @@ mkdir -p volume/.local volume/work volume/autoload volume/.cache
 docker run -it --rm \
 	-e HOST_USER_ID=$UID \
 	-e HOST_GROUP_ID=$GID \
+	-v $PWD:/home/me/work \
 	-v /home/$USER/.config:/home/me/.config \
 	-v /home/$USER/.local:/home/me/.local \
 	-v /home/$USER/.cache:/home/me/.cache \

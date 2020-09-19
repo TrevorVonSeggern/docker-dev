@@ -19,6 +19,7 @@ if [ ! -z "$USER_ID" ] && [ "$(id -u me)" != "$USER_ID" ]; then
     usermod --non-unique --uid "$USER_ID" --gid "$GROUP_ID" me
 fi
 
+mkdir -p /home/me/work
 
 # Copy commands execute as root, so this prevents that.
 # Setting permissions on /home/me
@@ -38,4 +39,4 @@ if [ -f /home/me/.config/install.sh ]; then
 fi
 
 # why exec?
-su -c "cd /home/me; /usr/bin/tmux -2u" me
+su -c "cd /home/me/work; /usr/bin/tmux -2u" me

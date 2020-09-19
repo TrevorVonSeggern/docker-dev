@@ -1,4 +1,6 @@
 work
+*_work/
+work_*/
 .local
 Dockerfile.*
 .git*

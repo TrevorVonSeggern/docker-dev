@@ -1,6 +1,6 @@
 FROM ubuntu:latest
 
-COPY installCommonPackages.sh
+COPY installCommonPackages.sh ./
 RUN installCommonPackages.sh
 
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -10,16 +10,11 @@ ENV DEBIAN_FRONTEND=noninteractive \
 RUN	apt-get install -qqy \
 		tzdata \
 		libpq-dev \
-		bash zsh \
 	&& wget https://packages.microsoft.com/config/ubuntu/19.10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb && \
 		apt install ./packages-microsoft-prod.deb && \
 		apt-get update && \
 		apt-get install -qqy dotnet-sdk-3.1 && \
 		rm -rf ./*.deb
 
-COPY --chown=user:user dotfiles /home/user/dotfiles
-RUN  mkdir -p /home/user/.local/share/zsh \
-	&& /bin/su -s /bin/zsh -c "/home/user/dotfiles/install.sh" user
-
-COPY entrypoint.sh entrypoint.sh
+COPY entrypoint.sh ./
 CMD [ "/entrypoint.sh" ]
