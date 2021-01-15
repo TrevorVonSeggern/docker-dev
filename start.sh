@@ -28,7 +28,6 @@ fi
 # work => your working directory, this will probably be pwd in a real application.
 # dotfiles/vim/autoload/ => the vim plugin get downloaded here. Cacheing here is nice.
 # .cache => vim caches .fzf here.
-mkdir -p volume/.local volume/work volume/autoload volume/.cache
 
 # might want to add this to an alias or something.
 docker run -it --rm \
