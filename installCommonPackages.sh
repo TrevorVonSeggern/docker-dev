@@ -1,11 +1,15 @@
 #!/bin/bash
 
-apt update -qq
 apt install -qqy \
-		apt-transport-https \
-		wget curl \
-		git vim tmux \
-		bash zsh
+	apt-transport-https \
+	wget curl \
+	git neovim vim tmux \
+	bash zsh \
+	tzdata \
+	python3 python3-dev python3-distutils python3-pip \
+	ripgrep cmake net-tools \
+	arduino-mk compton
 
-# coc needs node :(
-curl -sL install-node.now.sh/lts | bash -s -- --yes
+su -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" me
+rm /home/me/.zshrc
+usermod --shell /bin/zsh me

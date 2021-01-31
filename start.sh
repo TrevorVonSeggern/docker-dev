@@ -4,7 +4,7 @@
 set -e
 
 # remove this line if you don't want to re-build each time.
-runRemote=false
+runRemote=true
 buildLocal=true
 
 if [ "$runRemote" = true ]; then
